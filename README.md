@@ -62,6 +62,8 @@ template code (mustache)  :scissors: :
 
 ## Watson Visual Recogintion
 
+![vis_reco](doc_img/vis_reco.png)
+
 Insert Flow code  :scissors: :
 
 ```json
