@@ -41,7 +41,7 @@ URL for non twitter users:  ```ws://red-mh.mybluemix.net/twitter```
 ( Option if time: install dashboard via "manage palette"  -  add  and configure dashboard nodes  )
 
 
-##Watson Tone-Analyzer
+## Watson Tone-Analyzer
 
 ![tone_ana](doc_img/tone_ana.jpg)
 
@@ -60,7 +60,7 @@ template code (mustache)  :scissors: :
 ```
 
 
-##Watson Visual Recogintion##
+## Watson Visual Recogintion
 
 Insert Flow code  :scissors: :
 
