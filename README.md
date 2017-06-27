@@ -53,7 +53,7 @@ template code (mustache)  :scissors: :
 {{category_name}}
 ------------------
 {{#tones}}
-{{tone_name}}       {{score}}
+{{tone_name}}       {{score}} 
 {{/tones}}
 
 {{/response.document_tone.tone_categories}}
@@ -79,4 +79,9 @@ Some sample images to copy url:
     https://red-mh.mybluemix.net/img?img=auto.jpg
     https://red-mh.mybluemix.net/img?img=lha330.jpg
 
-( Option if time: try to save the reco results to the cloudat DB )
+Option if time: 
+
+- try to enable the addional classifier food  
+- create & train your own classifier 
+- try to save the reco results to the Cloudant DB 
+
