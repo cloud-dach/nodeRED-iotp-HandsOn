@@ -72,7 +72,11 @@ Insert Flow code  :scissors: :
 
 Some sample images to copy url:
 
-    https://red-mh.mybluemix.net/img?img=lhjumbo.jpg  
+    https://red-mh.mybluemix.net/img?img=schnitzel.jpg
+    https://red-mh.mybluemix.net/img?img=maus.jpg
+    https://red-mh.mybluemix.net/img?img=tandem.jpg
+    https://red-mh.mybluemix.net/img?img=tomate.jpg
+    https://red-mh.mybluemix.net/img?img=auto.jpg
     https://red-mh.mybluemix.net/img?img=lha330.jpg
 
 ( Option if time: try to save the reco results to the cloudat DB )
