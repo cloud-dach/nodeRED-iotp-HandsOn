@@ -11,40 +11,62 @@ Bluemix Account, Browser (not Internet Explorer)
 
 Link to Bluemix console:   [console.ng.bluemix.net](https://console.ng.bluemix.net)
 
-**We will use Bluemix US for this workshop!**
+**We will use Bluemix in the "US South" region  for this workshop!**
 
 Make sure that:
 
 ![bmx org](doc_img/bmx_org.png)
 
-## Login to Bluemix & Create Node-RED  runetime
+## Login to Bluemix & Create Node-RED  runtime
 
-Go to catalog and create the "Node-RED starter" application ( Boilerplates Section )
+Go to the catalog and create the "Node-RED starter" application ( Boilerplates Section )
 
 ![bmx starter](doc_img/bmx_nodeRED_starter.png)
  
 you must give it a **unique name** ( this name is your hostname and so needs to be unique across Bluemix.)
 
-( I use:  [**red-mh** - _mybluemix.net_](https://red-mh.mybluemix.net) )
+( I use:  [**red-workshopHH** - _mybluemix.net_](https://red-workshopHH.mybluemix.net) )
 
 
 ## Basic Flow with twitter &  Bluemix / Cloudant database
 
-URL for non twitter users:  ```ws://red-mh.mybluemix.net/twitter```
+URL for non twitter users:  ```ws://red-workshopHH.mybluemix.net/twitter```
 
 ![twitter_flow](doc_img/twitter_flow.png)
 
-/getdb  template code (mustache) :scissors: :
+### What nodes have been used here?
+Node | Type | Config
+---- | ---- | ------
+ws://red-workshopHH.mybluemix.net/twitter | websocket in | Type: **connect to**
+twitter | twitter in | search **all public tweets** for **#starwars**
+twitter_db | Cloudant (1. in, 2. out) | DB = connected Cloudant service (auto), 1. **Insert** to **twitter_db** and **only store msg.payload object** 2. Search by **all documents** in **twitter_db**
+sentiment | sentiment
+[get] /getdb | http in | method = **GET**, URL = **/getdb**
+Page: result list | template | mustache, see code below
+http | http response |
+msg... | debug | select object to print for debug 
+
+
+/getdb  template code (mustache) "page: result list" :scissors: :
 
 ```mustache
-{{#payload}}<li>{{payload}}</li>{{/payload}}    ```
-( Option if time: install dashboard via "manage palette"  -  add  and configure dashboard nodes  )
+{{#payload}}
+<li>{{payload}}</li>
+{{/payload}}    
+```
+( Option if you have some time left: install dashboard via "manage palette"  -  add  and configure dashboard nodes  )
 
 
 ## Watson Tone-Analyzer
 
 ![tone_ana](doc_img/tone_ana.png)
 
+### What nodes have been used here?
+Node | Type | Config
+---- | ---- | ------
+tone analyzer v3 | Watson Tone Analyzer | Service = connected Tone Analyzer service (auto)
+tone response (text table) | template | mustache, see code below
+msg... | debug | select object to print for debug 
 
 template code (mustache)  :scissors: :
 
@@ -79,7 +101,7 @@ Some sample images to copy url:
     https://red-mh.mybluemix.net/img?img=auto.jpg
     https://red-mh.mybluemix.net/img?img=lha330.jpg
 
-Option if time: 
+Option if you have some time left: 
 
 - try to enable the addional classifier food  
 - create & train your own classifier 
