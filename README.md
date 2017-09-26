@@ -1,5 +1,5 @@
 
-# Node-RED Workshop Hands-Out
+# Node-RED with Watson IoT Platform Workshop Hands-Out
 
  _Program the Bluemix Innovation Platform without writing code!_
 
