@@ -39,23 +39,27 @@ When the new app's dashboard appears, there is no reason to wait until the appli
 1. Before you can receive events and datapoints from a device, your must register it with the Watson IoT Platform. Open the **Internet of Things Platform** service and then **Launch** its IoT dashboard from the service's landing page.
 
 1. In your Watson IoT Platform dashboard, select **Devices** from the menu pane, then click **Add Device** in the upper-right.
-![bmx addDevice](doc_img/snap1.JPG)
+
+    ![bmx addDevice](doc_img/snap1.JPG)
 
 
-1. Click **Create device type**. 
+1. Create a device type definition 
 
-   Creating a device type will make it easier to find and identify the device after connecting it. Our device will identify itself as **device type** = *iotsensor_device* and **device ID** = *iotsensor*.
+    Click **Create device type**. 
 
-   Click **Create device type** again, then enter *iotsensor_device* as the **device type** name. On the next pages you may optionally define properties and metadata for the device type. Click **Next** on each page and finally finish the sequence by  clicking **Create**.
-![bmx createDeviceType](doc_img/snap3.JPG)
+    Creating a device type will make it easier to find and identify the device after connecting it. Our device will identify itself as **device type** = *iotsensor_device* and **device ID** = *iotsensor*.
+
+    Click **Create device type** again, then enter *iotsensor_device* as the **device type** name. On the next pages you may optionally define properties and metadata for the device type. Click **Next** on each page and finally finish the sequence by  clicking **Create**.
+   
+    ![bmx createDeviceType](doc_img/snap3.JPG)
 
 1. Create a device definition
 
-   You will return to the *Add Device* page, where your new device type is already pre-selected. Click **Next**, then enter *iotsensor* as the **Device ID**. Click **Next** twice.
+    You will return to the *Add Device* page, where your new device type is already pre-selected. Click **Next**, then enter *iotsensor* as the **Device ID**. Click **Next** twice.
    
-   On the *Security* page either provide an authentication token, or accept an automatically generated token. Providing a memorable authentication token may be useful for recalling it later. Click **Next**.
+    On the *Security* page either provide an authentication token, or accept an automatically generated token. Providing a memorable authentication token may be useful for recalling it later. Click **Next**.
    
-   Verify that the summary information shown is correct and then click **Add**. From the device information page, copy and save the following device information
+    Verify that the summary information shown is correct and then click **Add**. From the device information page, copy and save the following device information
    
        Organization ID
        Device Type
@@ -63,7 +67,7 @@ When the new app's dashboard appears, there is no reason to wait until the appli
        Authentication method
        Authentication token
 
-![bmx deviceInformation](doc_img/snap7.JPG)
+    ![bmx deviceInformation](doc_img/snap7.JPG)
 
 
 ## Connect the iotsensor to the Watson IoT Platform
@@ -73,12 +77,14 @@ This step connects the "iotsensor" device to the registered device in your Watso
 1. In the Browser navigate to: http://watson-iot-sensor-simulator.mybluemix.net/
 
 1. When prompted, enter the device information which you created in the Watson IoT Platform in the registration step before and saved it at the end.
-![bmx configSensor](doc_img/snap8.JPG)
+
+    ![bmx configSensor](doc_img/snap8.JPG)
 
 1. Verify that the connecting message changes to the name of your device, i.e. iotsensor. The device is now connected to the Watson IoT Platform.
 
 1. In the Watson IoT Platform's *Device* dashboard, click your device and verify that data is being received.
-![bmx deviceReceiveData](doc_img/snap9.JPG)
+
+    ![bmx deviceReceiveData](doc_img/snap9.JPG)
 
 
 # Open the Node-RED editor 
@@ -93,7 +99,7 @@ So let's revisit the application you instantiated at the very beginning of this 
     https://<appname>.mybluemix.net
     ```
 
-After some setup steps the Node-RED editor will open.
+    After some setup steps the Node-RED editor will open.
 
 1. You see a ready-made flow that can process temperature readings from a simulated device.
 
@@ -105,15 +111,16 @@ After some setup steps the Node-RED editor will open.
 
     ![IOT App IN node](./doc_img/iot-appnode.png)
     
------------------- TODO: CHANGE ---------------
-
 1. In the Authentication type field, select **Bluemix Service** from the pull-down list. The app will now authenticate to the Watson IoT Platform using the credentials contained in the binding information. 
 
 1. Uncheck the checkbox beside *All* for the Device Type field and fill in the device type of your iotsensor device, which is *iotsensor_device*. Leave all other fields unchanged and click **Done**.
+
     ![Node-RED IoTP node](./doc_img/snap10.PNG)
-<br />*Make sure that the device id is entered in lowercase, and that there are no leading or trailing space characters.*
+
+    <br />*Make sure that the device id is entered in lowercase, and that there are no leading or trailing space characters.*
 
 1. Double-click the *function* node named **temp**. In the code, change *msg.payload.d.temp* to *msg.payload.d.temperature*. (Your iotsensor device will send the data with that JSON classifier.) Click **Done**
+
     ![Node-RED temp node](./doc_img/snap11.PNG)
 
 1. Look for the **Deploy** button in the upper right hand corner of your Node-RED workspace. The deploy button is now red; click it to deploy your flow.
@@ -123,7 +130,7 @@ After some setup steps the Node-RED editor will open.
 1. Open the debug pane on the right. You will see that the flow is generating Temperature Status messages.
 
 1. Increase the temperature value on the simulator to see the messages change in the debug pane.
-<br /> *Note that a different message appears if the temperature exceeds 40 degrees.*
+ <br /> *Note that a different message appears if the temperature exceeds 40 degrees.*
 
 # Store the device data into a No SQL database
 
@@ -132,13 +139,13 @@ After some setup steps the Node-RED editor will open.
     ![Cloudant out node](./doc_img/nodered-cloudant.png)
 
 1. In the Service type field, select the name of Cloudant service bound to Node.js runtime from the pull-down list.
-<br />Enter a dabatase name in lowercase. Keep the default operation insert and finally give a name to the node.
+ <br />Enter a dabatase name in lowercase. Keep the default operation insert and finally give a name to the node.
 
-  ![Cloudant configuration](./doc_img/nodered-cloudantconfig.png)
+    ![Cloudant configuration](./doc_img/nodered-cloudantconfig.png)
 
 1. Deploy the flow. Return to the Bluemix console, go to the Cloudant console and navigate into the records.
 
-  ![Cloudant console](./doc_img/cloudant-console.png)
+    ![Cloudant console](./doc_img/cloudant-console.png)
 
 # Translate messages with Watson.
 
