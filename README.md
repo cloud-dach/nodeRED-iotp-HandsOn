@@ -39,7 +39,7 @@ When the new app's dashboard appears, there is no reason to wait until the appli
 1. Before you can receive events and datapoints from a device, your must register it with the Watson IoT Platform. Open the **Internet of Things Platform** service and then **Launch** its IoT dashboard from the service's landing page.
 
 1. In your Watson IoT Platform dashboard, select **Devices** from the menu pane, then click **Add Device** in the upper-right.
-![bmx addDevice](doc_img/snap1.PNG)
+![bmx addDevice](doc_img/snap1.JPG)
 
 
 1. Click **Create device type**. 
@@ -47,7 +47,7 @@ When the new app's dashboard appears, there is no reason to wait until the appli
    Creating a device type will make it easier to find and identify the device after connecting it. Our device will identify itself as **device type** = *iotsensor_device* and **device ID** = *iotsensor*.
 
    Click **Create device type** again, then enter *iotsensor_device* as the **device type** name. On the next pages you may optionally define properties and metadata for the device type. Click **Next** on each page and finally finish the sequence by  clicking **Create**.
-![bmx createDeviceType](doc_img/snap3.PNG)
+![bmx createDeviceType](doc_img/snap3.JPG)
 
 1. Create a device definition
 
@@ -63,7 +63,7 @@ When the new app's dashboard appears, there is no reason to wait until the appli
        Authentication method
        Authentication token
 
-![bmx deviceInformation](doc_img/snap7.PNG)
+![bmx deviceInformation](doc_img/snap7.JPG)
 
 
 ## Connect the iotsensor to the Watson IoT Platform
@@ -73,12 +73,12 @@ This step connects the "iotsensor" device to the registered device in your Watso
 1. In the Browser navigate to: http://watson-iot-sensor-simulator.mybluemix.net/
 
 1. When prompted, enter the device information which you created in the Watson IoT Platform in the registration step before and saved it at the end.
-![bmx configSensor](doc_img/snap8.PNG)
+![bmx configSensor](doc_img/snap8.JPG)
 
 1. Verify that the connecting message changes to the name of your device, i.e. iotsensor. The device is now connected to the Watson IoT Platform.
 
 1. In the Watson IoT Platform's *Device* dashboard, click your device and verify that data is being received.
-![bmx deviceReceiveData](doc_img/snap9.PNG)
+![bmx deviceReceiveData](doc_img/snap9.JPG)
 
 
 # Open the Node-RED editor 
@@ -93,22 +93,32 @@ So let's revisit the application you instantiated at the very beginning of this 
     https://<appname>.mybluemix.net
     ```
 
+After some setup steps the Node-RED editor will open.
+
 1. You see a ready-made flow that can process temperature readings from a simulated device.
 
-    ![](./images/nodered-defaultflow.png)
+    ![nr default flow](./doc_img/nodered-defaultflow.png)
 
 # Use Node-RED to read the sensor data
 
 1. In the Node-RED workspace, double-click the **IBM IoT App In** node to open the configuration dialog.
 
-    ![IOT App IN node](./images/iot-appnode.png)
+    ![IOT App IN node](./doc_img/iot-appnode.png)
+    
+------------------ TODO: CHANGE ---------------
 
-1. In the Authentication type field, select **Quickstart** from the pull-down list. Enter the Device ID field and click OK.
+1. In the Authentication type field, select **Bluemix Service** from the pull-down list. The app will now authenticate to the Watson IoT Platform using the credentials contained in the binding information. 
+
+1. Uncheck the checkbox beside *All* for the Device Type field and fill in the device type of your iotsensor device, which is *iotsensor_device*. Leave all other fields unchanged and click **Done**.
+    ![Node-RED IoTP node](./doc_img/snap10.PNG)
 <br />*Make sure that the device id is entered in lowercase, and that there are no leading or trailing space characters.*
+
+1. Double-click the *function* node named **temp**. In the code, change *msg.payload.d.temp* to *msg.payload.d.temperature*. (Your iotsensor device will send the data with that JSON classifier.) Click **Done**
+    ![Node-RED temp node](./doc_img/snap11.PNG)
 
 1. Look for the **Deploy** button in the upper right hand corner of your Node-RED workspace. The deploy button is now red; click it to deploy your flow.
 
-    ![Node-RED Deploy](./images/nodered-deploy.png)
+    ![Node-RED Deploy](./doc_img/nodered-deploy.png)
 
 1. Open the debug pane on the right. You will see that the flow is generating Temperature Status messages.
 
@@ -119,16 +129,16 @@ So let's revisit the application you instantiated at the very beginning of this 
 
 1. In Node-RED flow editor, add a **Cloudant out** node
 
-    ![Cloudant out node](./images/nodered-cloudant.png)
+    ![Cloudant out node](./doc_img/nodered-cloudant.png)
 
 1. In the Service type field, select the name of Cloudant service bound to Node.js runtime from the pull-down list.
 <br />Enter a dabatase name in lowercase. Keep the default operation insert and finally give a name to the node.
 
-  ![Cloudant configuration](./images/nodered-cloudantconfig.png)
+  ![Cloudant configuration](./doc_img/nodered-cloudantconfig.png)
 
 1. Deploy the flow. Return to the Bluemix console, go to the Cloudant console and navigate into the records.
 
-  ![Cloudant console](./images/cloudant-console.png)
+  ![Cloudant console](./doc_img/cloudant-console.png)
 
 # Translate messages with Watson.
 
@@ -140,7 +150,7 @@ The warning messages generated in Node-RED uses English by default. You may want
 
 1. Modify the flow accordingly to translate those messages.
 
-    ![Watson Language Translator](./images/nodered-translationflow.png)
+    ![Watson Language Translator](./doc_img/nodered-translationflow.png)
 
 1. Deploy the updated flow.
 
@@ -149,20 +159,25 @@ The warning messages generated in Node-RED uses English by default. You may want
 
 # Resources
 
-For additional resources pay close attention to the following:
+This lab has been derived from several sources like other labs and receipes. See:
 
-- [Real Time Data Analysis Using IoT Platform Analytics](https://developer.ibm.com/recipes/tutorials/real-time-data-analysis-using-ibm-watson-iot-platform-analytics)
+1. [Lab IOT - Connect your Devices with IOT Platform](https://github.com/lionelmace/bluemix-labs/tree/master/labs/Lab%20IOT%20-%20Connect%20your%20Devices%20with%20IOT%20Platform)
+1. [Using Rules and Actions with IBM Watson IoT Platform Cloud Analytics](https://developer.ibm.com/recipes/tutorials/using-rules-and-actions-with-ibm-watson-iot-platform-cloud-analytics)
+1. [Node-RED Workshop Hands-Out](https://github.com/cloud-dach/nodeRED-HandsOn)
 
+Credits and many Thanks to Lionel Mace, Ed Prosser and Michael Hoffmann (all from IBM).
 
+## Optional step: create a board and some cards in the Watson IoT Platform to visualize the data sent by your iotsensor device.
 
-## Optional step: create a board and some cards to visualize the data sent by your iotsensor device.
+At this point, you can create a board and some cards from your Watson IoT Platform dashboard. Boards and cards can be used to keep track of device data, for example the temperature, humidity and object temperature data being sent by the iotsensor. 
 
-At this point, you can create a board and some cards from your Watson IoT Platform dashboard. Boards and cards can be used to keep track of device data, for example the temperature, humidity and object temperature data being sent by the iotsensor. To set up a new board follow these steps.
-        In your Watson IoT Platform dashboard click Create New Board in the upper right.
-        Give the board a name and description.
-        Click Next then Create.
-        Click on the board you have just created.
-        Click Add New Card in the upper right. 
-        Select the style of visualization, and select the iotsensor as the data source.
+To set up a new board follow these steps.
+
+1. In your Watson IoT Platform dashboard click Create New Board in the upper right.
+1. Give the board a name and description.
+1. Click Next then Create.
+1. Click on the board you have just created.
+1. Click Add New Card in the upper right. 
+1. Select the style of visualization, and select the iotsensor as the data source.
 
 
