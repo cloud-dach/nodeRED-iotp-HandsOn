@@ -158,7 +158,7 @@ The warning messages generated in Node-RED uses English by default. You may want
 1. In the Bluemix console, create a new service **Language Translator** from the Bluemix catalog. You may bind it to your app, which would simplify the handling in Node-RED, but this time we want to demonstrate to you how to use the service like an external service. And, by the way, we will save the time here to restage the app after the binding.
  Once the service is established, open the *Service credentials* section in the service dashboard and take note of the service's credentials.
 
-    ![Watson Language Translator](./doc_img/Translator-Credentials.png)
+    ![Watson Language Translator](./doc_img/Translator-Credentials.PNG)
 
 1. In the Node-RED flow editor, add a new **language translator** node to the flow.
 
