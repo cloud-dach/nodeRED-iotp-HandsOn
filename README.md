@@ -8,7 +8,9 @@ _Try some Watson / Bluemix / IoT Services_
 ## Overview
 Skill Level: Beginner
 
-With IBM Watson IoT Platform you can set up rules and actions that trigger from your IoT device data. The following recipe uses a simulated device to set cloud analytics rules and actions for three metrics: temperature, humidity and object temperature.
+With IBM Watson IoT Platform you can connect IoT devices on one side (the "device side") and applications on the other side (the "application side"). That way, applications can receive and process device data and send commands back to the devices. (Of course, devices could also communicate with each other, but that's out of scope for this lab.)
+
+This lab demonstrates how to connect a simulated device to the Watson IoT platform, vizualise its live data, and leverage the Node-RED tool for wiring together hardware devices, APIs and online services. As an example, it is described how to integrate  Bluemix services to store the data into a database and process the data with a Watson service. 
 
 ## Prerequisites:         
 
@@ -87,7 +89,7 @@ This step connects the "iotsensor" device to the registered device in your Watso
     ![bmx deviceReceiveData](doc_img/snap9.JPG)
 
 
-# Open the Node-RED editor 
+## Open the Node-RED editor 
 
 You've seen the data coming in from the device to the Watson IoT Platform, what next? Now you will use your device in an application created with IBM Bluemix. This application is actually a node.js app, but you will not program the logic in JavaScript. Instead you will use the Node-RED framework (on top of node.js) to define a "flow of nodes" in the Node-RED editor.
 
@@ -105,13 +107,13 @@ So let's revisit the application you instantiated at the very beginning of this 
 
     ![nr default flow](./doc_img/nodered-defaultflow.png)
 
-# Use Node-RED to read the sensor data
+## Use Node-RED to read the sensor data
 
 1. In the Node-RED workspace, double-click the **IBM IoT App In** node to open the configuration dialog.
 
     ![IOT App IN node](./doc_img/iot-appnode.png)
     
-1. In the Authentication type field, select **Bluemix Service** from the pull-down list. The app will now authenticate to the Watson IoT Platform using the credentials contained in the binding information. 
+1. In the *Authentication* field, select **Bluemix Service** from the pull-down list. The app will now authenticate to the Watson IoT Platform using the credentials contained in the binding information. 
 
 1. Uncheck the checkbox beside *All* for the Device Type field and fill in the device type of your iotsensor device, which is *iotsensor_device*. Leave all other fields unchanged and click **Done**.
 
@@ -131,8 +133,10 @@ So let's revisit the application you instantiated at the very beginning of this 
 
 1. Increase the temperature value on the simulator to see the messages change in the debug pane.
  <br /> *Note that a different message appears if the temperature exceeds 40 degrees.*
+ 
+Now that you have a basic flow of "nodes", which form an application to process the iotsensor device data, you may decide to extend the processing. There are so many options open to you, provided by the Node-RED framework and the underlying Bluemix platform with its services ... but unfortunately the time to do this lab is limited. So we just describe two of them here, but you are free to try more afterwards.   
 
-# Store the device data into a No SQL database
+## Store the device data into a No SQL database
 
 1. In Node-RED flow editor, add a **Cloudant out** node
 
@@ -147,32 +151,27 @@ So let's revisit the application you instantiated at the very beginning of this 
 
     ![Cloudant console](./doc_img/cloudant-console.png)
 
-# Translate messages with Watson.
+## Use the Watson Language Translator to translate the messages
 
 The warning messages generated in Node-RED uses English by default. You may want to translate those messages into your oww language.
 
-1. In Bluemix console, bind a new service **Language Translator** to your app.
+1. In the Bluemix console, create a new service **Language Translator** from the Bluemix catalog. You may bind it to your app, which would simplify the handling in Node-RED, but this time we want to demonstrate to you how to use the service like an external service. And, by the way, we will save the time here to restage the app after the binding.
+ Once the service is established, open the *Service credentials* section in the service dashboard and take note of the service's credentials.
 
-1. In Node-RED flow editor, add a new **Language Translator** node to the flow.
+    ![Watson Language Translator](./doc_img/Translator-Credentials.png)
 
-1. Modify the flow accordingly to translate those messages.
+1. In the Node-RED flow editor, add a new **language translator** node to the flow.
+
+1. Modify the flow accordingly to translate those messages. 
 
     ![Watson Language Translator](./doc_img/nodered-translationflow.png)
 
+1. Open the **language translator** node and insert the credentials retrieved in the step before to the *username* and *password* fields. Then select the **News** *domain* and your preferred *Target* language. Click Done.
+
 1. Deploy the updated flow.
 
-1. Observe the translated output based on the selected language.
+1. Observe the translated output based on the selected language in the debug pane.
 
-
-# Resources
-
-This lab has been derived from several sources like other labs and receipes. See:
-
-1. [Lab IOT - Connect your Devices with IOT Platform](https://github.com/lionelmace/bluemix-labs/tree/master/labs/Lab%20IOT%20-%20Connect%20your%20Devices%20with%20IOT%20Platform)
-1. [Using Rules and Actions with IBM Watson IoT Platform Cloud Analytics](https://developer.ibm.com/recipes/tutorials/using-rules-and-actions-with-ibm-watson-iot-platform-cloud-analytics)
-1. [Node-RED Workshop Hands-Out](https://github.com/cloud-dach/nodeRED-HandsOn)
-
-Credits and many Thanks to Lionel Mace, Ed Prosser and Michael Hoffmann (all from IBM).
 
 ## Optional step: create a board and some cards in the Watson IoT Platform to visualize the data sent by your iotsensor device.
 
@@ -187,4 +186,13 @@ To set up a new board follow these steps.
 1. Click Add New Card in the upper right. 
 1. Select the style of visualization, and select the iotsensor as the data source.
 
+# Resources
+
+This lab has been derived from several sources like other labs and receipes. See:
+
+1. [Lab IOT - Connect your Devices with IOT Platform](https://github.com/lionelmace/bluemix-labs/tree/master/labs/Lab%20IOT%20-%20Connect%20your%20Devices%20with%20IOT%20Platform)
+1. [Using Rules and Actions with IBM Watson IoT Platform Cloud Analytics](https://developer.ibm.com/recipes/tutorials/using-rules-and-actions-with-ibm-watson-iot-platform-cloud-analytics)
+1. [Node-RED Workshop Hands-Out](https://github.com/cloud-dach/nodeRED-HandsOn)
+
+Credits and many Thanks to Lionel Mace, Ed Prosser and Michael Hoffmann (all from IBM).
 
