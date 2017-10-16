@@ -115,11 +115,11 @@ So let's revisit the application you instantiated at the very beginning of this 
     
 1. In the *Authentication* field, select **Bluemix Service** from the pull-down list. The app will now authenticate to the Watson IoT Platform using the credentials contained in the binding information. 
 
-1. Uncheck the checkbox beside *All* for the Device Type field and replace the "**+**" sign in the text box with the device type of your iotsensor device, which is *iotsensor_device*. Leave all other fields unchanged and click **Done**.
+1. Uncheck the checkbox beside *All* for the *Device Type* field and replace the "**+**" sign in the text box with the device type of your iotsensor device, which is *iotsensor_device*. Leave all other fields unchanged and click **Done**.
 
     ![Node-RED IoTP node](./doc_img/snap10.PNG)
 
-    <br />*Make sure that the device id is entered in lowercase, and that there are no leading or trailing space characters.*
+    <br />*Make sure that the device type is entered in lowercase, and that there are no leading or trailing space characters.*
 
 1. Double-click the *function* node named **temp**. In the code, change *msg.payload.d.temp* to *msg.payload.d.temperature*. (Your iotsensor device will send the data with that JSON classifier.) Click **Done**
 
