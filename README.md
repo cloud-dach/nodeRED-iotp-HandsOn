@@ -172,6 +172,7 @@ The warning messages generated in Node-RED uses English by default. You may want
 
 1. Observe the translated output based on the selected language in the debug pane.
 
+**Note**: if you are using a different Watson instance, e.g. in a different region like *Germany*, then the URL to the API endpoint is also different from the default setting in the *language translator* node. In this case, in the node's configuration uncheck the checkbox "*Use Default Service Endpoint*" and insert the URL provided in the Bluemix *language translation* service's *credentials* page. (Just like you did for the *username* and *password* properties.)     
 
 ## Optional step: create a board and some cards in the Watson IoT Platform to visualize the data sent by your iotsensor device.
 
