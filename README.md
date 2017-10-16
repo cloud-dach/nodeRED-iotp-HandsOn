@@ -172,20 +172,20 @@ The warning messages generated in Node-RED uses English by default. You may want
 
 1. Observe the translated output based on the selected language in the debug pane.
 
-**Note**: if you are using a different Watson instance, e.g. in a different region like *Germany*, then the URL to the API endpoint is also different from the default setting in the *language translator* node. In this case, in the node's configuration uncheck the checkbox "*Use Default Service Endpoint*" and insert the URL provided in the Bluemix *language translation* service's *credentials* page. (Just like you did for the *username* and *password* properties.)     
+**Note**: if you are using a different Watson instance, e.g. in a different region like *Germany*, then the URL to the API endpoint is different from the default setting in the *language translator* node. In this case, in the node's configuration uncheck the checkbox "*Use Default Service Endpoint*" and insert the URL provided in the Bluemix *language translation* service's *credentials* page. (Just like you did for the *username* and *password* properties.)     
 
 ## Optional step: create a board and some cards in the Watson IoT Platform to visualize the data sent by your iotsensor device.
 
-At this point, you can create a board and some cards from your Watson IoT Platform dashboard. Boards and cards can be used to keep track of device data, for example the temperature, humidity and object temperature data being sent by the iotsensor. 
+At this point, you can create a board and some cards from your *Watson IoT Platform* dashboard. Boards and cards can be used to keep track of device data, for example the temperature, humidity and object temperature data being sent by the *iotsensor*. 
 
 To set up a new board follow these steps.
 
-1. In your Watson IoT Platform dashboard click Create New Board in the upper right.
+1. In your Watson IoT Platform dashboard click **Create New Board** in the upper right.
 1. Give the board a name and description.
-1. Click Next then Create.
+1. Click **Next**, then **Create**.
 1. Click on the board you have just created.
-1. Click Add New Card in the upper right. 
-1. Select the style of visualization, and select the iotsensor as the data source.
+1. Click **Add New Card** in the upper right. 
+1. Select the style of visualization, and select the *iotsensor* as the data source.
 
 # Resources
 
